@@ -18,7 +18,13 @@ function BookingPage(){
         </div>
 
         <div className="lg-col-span-1 mt-8 lg:mt-0">
-            <BookingSummary />
+            <BookingSummary
+  service="General Service"
+  packageType="Standard Package"
+  vehicle="Hatchback"
+  location="Nairobi"
+  price="2500"
+/>
         </div>
         </div>
         </div>
