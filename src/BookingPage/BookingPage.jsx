@@ -3,35 +3,68 @@ import PackageSelection from "./PackageSelection/PackageSelection";
 import VehicleLocation from "./VehicleLocation.jsx/VehicleLocation";
 import ServiceSelection from "./ServiceSelection/ServiceSelection";
 import BookingHeader from "./BookingHeader";
+import { useState } from "react";
+import BookingPopup from "./BookingPopup";
+
 function BookingPage(){
-    return(
-        <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
-            <div className="max-w-7xxl mx-auto px-4 sm:px-6 lh:px-8">
-                <BookingHeader />
+    const [service, setService]= useState("General Service");
+    const [showPopup, setShowPopup] = useState(false);
+    const [vehicle, setVehicle] = useState("");
+    const [location, setLocation] = useState("");
+    const [packageType, setPackageType] = useState("");
+    const [price, setPrice] = useState("");
+    const [selectedSpecific, setSelectedSpecific] = useState("Basic Service")
 
-                <div className="mt-10 lg:mt-12 grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
-        
-        <div className="lg:col-span-2 space-y-8 lg:space-y-12">
-        <ServiceSelection />    
-        <VehicleLocation />
-        <PackageSelection />
-        </div>
+    const[selectedPackage, setSelectedPackage] = useState("")
+    return (
+  <>
+    {/* MAIN PAGE */}
 
-        <div className="lg-col-span-1 mt-8 lg:mt-0">
-            <BookingSummary
-  service="General Service"
-  packageType="Standard Package"
-  vehicle="Hatchback"
-  location="Nairobi"
-  price="2500"
-/>
+    <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <BookingHeader />
+
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 space-y-8">
+            <ServiceSelection 
+            setService={setService}
+            setSelectedSpecific={setSelectedSpecific}
+            selectedSpecific={selectedSpecific} />
+
+            <VehicleLocation />
+
+            <PackageSelection 
+            setPackageType={setPackageType}
+            setPrice={setPrice}
+            setSelectedPackage={setSelectedPackage}
+            selectedPackage={selectedPackage}
+            selectedSpecific={selectedSpecific}
+            />
+          </div>
+
+          <BookingSummary
+            service={service}
+            packageType={packageType}
+            vehicle={vehicle}
+            location={location}
+            price= {price}
+            setShowPopup={setShowPopup}
+          />
         </div>
-        </div>
-        </div>
-        </section>
-        
-    )
+      </div>
+    </section>
+
+    {/* POPUP FLOATS ABOVE EVERYTHING */}
+    {showPopup && (
+      <BookingPopup
+        service={service}
+        packageType={packageType}
+        price={price}
+        setShowPopup={setShowPopup}
+      />
+    )}
+  </>
+);
 }
-
-
+       
 export default BookingPage;
