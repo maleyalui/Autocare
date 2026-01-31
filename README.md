@@ -1,18 +1,59 @@
-## About
-[Your Description Here]
-# React + Vite
+## AutoCare -Vehicle Maintenance and Repair
+**Professional Vehicle services delivered right to your doorstep.**
+AutoCare connects vehicle owners in Kenya with trusted mechanics for doorstep maintenance, repairs, oil changes, fueul delivery, detailing, and more, Book services in minutes, choose your preferred package, and see everything in one seamless experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##Features
+-Browse and select from multiple service categories (General Service, Oils & Fluids, Car Detailing, On-site Refuelling)
+-Choose specific services (e.g. Comprehensive Service, Engine Oil Change, Diesel Delivery 20L, Full Detailing)
+-Tiered pricing packages: **Basic**,**Standard**(recommended),**Premium**
+-Real-time package comparison with featurs & pricing
+-Vehicle & location input
+-Clean, responsive booking summary sidebar
+-Confirmation popup after booking
+-Modern, friendly UI built with Tailwind CSS
 
-Currently, two official plugins are available:
+##Tech Stack
+**Frontend Framework**: React (Vite)
+**Styling**: Tailwind CSS
+**Routing**: React Router DOM
+**State Management**: React useState(component-level)
+**Build Tool**: Vite
+**Code Qaulity**: ESLint
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## React Compiler
+### Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js ≥ 18
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Clone the repository
+git clone https://github.com/your-username/autocare.git
+cd autocare
+
+# Install dependencies
+npm install
+npm install react-router-DOM
+
+Development
+#Start development server
+npm run dev
+
+Contributors
+Thank you to everyone who made AutoCare possible:
+Luis Maleya
+Priscillah Kamau
+Mulki Mohammed
+Mitchelle Wanjiku
+
+Future Improvements (Planned/In progress)
+User authentication & booking history
+Real payment intergration (M-pesa)
+Mechanic dashboard
+Notifications (SMS/WhastApp)
+Map
+Admin panel for service management
+Typescript migration
+React Compiler optimization
