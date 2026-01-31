@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-function ServiceSelection() {
+function ServiceSelection({setService, SetSelectedSpecific,selectedSpecific}) {
         //Separate state for each category  
         //General service is always active
     const [generalSelected,setGeneralSelected] = useState(true)
     const [oilsSelected,setOilsSelected] = useState(false)
     const [detailingSelected,setDetailingSelected] = useState(false)
     const [refuellingSelected,setRefuellingSelected] = useState(false)
+    const [currentSelection, setCurrentSelection] = useState("Basic Service")
 
 // Determine which is active
 let activeCategory = 'General Service';
@@ -56,6 +57,14 @@ if (buttonName === 'General Service') setGeneralSelected(true);
 if (buttonName === 'Oils & Fluids') setOilsSelected(true);
 if (buttonName === 'Car Detailing') setDetailingSelected(true);
 if (buttonName === 'On-site Refuelling') setRefuellingSelected(true);
+
+setService(buttonName);
+
+//Sets first service to Basic Service or the chosen one
+
+const firstService = Categoryoptions[buttonName]?.[0] || "Basic Service";
+SetSelectedSpecific(firstService);
+setCurrentSelection(firstService);
  
     };
     return (
@@ -69,6 +78,7 @@ if (buttonName === 'On-site Refuelling') setRefuellingSelected(true);
 
                 {/* General Service Button */}
                 <button
+                onChange={(e)=> setSelectedSpecific(e.target.value)}
                 onClick={()=> handleButtonClick('General Service')}
             className="
              px-5 py-3 md:px-6 md:py-4
