@@ -3,6 +3,7 @@
 AutoCare connects vehicle owners in Kenya with trusted mechanics for doorstep maintenance, repairs, oil changes, fueul delivery, detailing, and more, Book services in minutes, choose your preferred package, and see everything in one seamless experience.
 
 ##Features
+
 -Browse and select from multiple service categories (General Service, Oils & Fluids, Car Detailing, On-site Refuelling)
 -Choose specific services (e.g. Comprehensive Service, Engine Oil Change, Diesel Delivery 20L, Full Detailing)
 -Tiered pricing packages: **Basic**,**Standard**(recommended),**Premium**
@@ -13,6 +14,7 @@ AutoCare connects vehicle owners in Kenya with trusted mechanics for doorstep ma
 -Modern, friendly UI built with Tailwind CSS
 
 ##Tech Stack
+
 **Frontend Framework**: React (Vite)
 **Styling**: Tailwind CSS
 **Routing**: React Router DOM
@@ -40,7 +42,7 @@ npm install react-router-DOM
 Development
 #Start development server
 npm run dev
-
+```
 Contributors
 Thank you to everyone who made AutoCare possible:
 Luis Maleya
