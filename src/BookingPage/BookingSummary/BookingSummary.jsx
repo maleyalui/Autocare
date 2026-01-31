@@ -1,4 +1,13 @@
 function BookingSummary(props) {
+
+     console.log("BookingSummary received:", {
+    service: props.service,
+    packageType: props.packageType,
+    price: props.price,
+    vehicle: props.vehicle,
+    location: props.location,
+  });
+
     return (
         <section className="bg-white rounded-2xl shadow-md p-6 md:p-8 border border-gray-100 lg:sticky lg:top-8">
             <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800"
@@ -33,7 +42,9 @@ function BookingSummary(props) {
         </div>
       </div>
 
-      <button className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+      <button 
+       onClick={() => props.setShowPopup(true)}
+      className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
         Pay Now
       </button>
 </section>
