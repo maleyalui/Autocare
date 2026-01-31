@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 function Title() {
 return (
     <div>
@@ -16,9 +18,12 @@ function Description() {
 }
 
 function Getstarted(){
+    const navigate = useNavigate()
     return(<div className="flex justify-center">
         
+        {/* Using Navigate to so that when clicked takes you to the booking page */}
             <button
+            onClick={()=>navigate('/booking')}
             className="
             bg-blue-600 hover:bg-blue-700
             text-white font-semibold
