@@ -1,4 +1,22 @@
-function VehicleLocation() {
+import { useState } from "react";
+
+function VehicleLocation({ onVehicleChange, onLocationChange }) {
+
+  const [vehicleType, setVehicleType] = useState('Hatchback');
+  const [serviceLocation, setServiceLocation] = useState('');
+
+  const handleVehicleChange = (e) => {
+    const value = e.target.value;
+    setVehicleType(value);
+    if(onVehicleChange) onVehicleChange(value) // this is sent to the parent
+  };
+
+  // Handle Location change
+  const handleLocationChange = (e) => {
+    const value = e.target.value;
+    setServiceLocation(value);
+    if(onLocationChange) onLocationChange(value); //this is also sent to parent
+  }
   return (
     <section className="bg-white rounded-2xl shadow-md p-6 md:p-8 border border-gray-100">
       <h3 className="text-2xl font-semibold mb-6 text-gray-800 flex items-center gap-3">
@@ -11,7 +29,11 @@ function VehicleLocation() {
           <label className="block text-gray-700 font-medium mb-3 text-lg">
             Vehicle Type
           </label>
-          <select className="w-full p-4 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <select
+          value={vehicleType}
+          onChange={handleVehicleChange}
+          className="
+          w-full p-4 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             <option>Hatchback</option>
             <option>Sedan</option>
             <option>SUV / Crossover</option>
@@ -24,7 +46,10 @@ function VehicleLocation() {
           <label className="block text-gray-700 font-medium mb-3 text-lg">
             Service Location
           </label>
-          <select className="w-full p-4 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <select 
+          value={serviceLocation}
+          onChange={handleLocationChange}
+          className="w-full p-4 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             <option value="" disabled selected>
               Select an area in Nairobi
             </option>

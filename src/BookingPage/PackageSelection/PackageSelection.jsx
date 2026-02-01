@@ -5,6 +5,8 @@ function ChoosePackageStep({
   selectedPackage,
   setSelectedPackage,
 }) {
+
+
   // This is our list of all possible services and their packages
   const packages = {
     // Basic Service selected

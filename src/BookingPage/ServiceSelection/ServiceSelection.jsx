@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ServiceSelection({setService, SetSelectedSpecific,selectedSpecific}) {
+function ServiceSelection({setService, setSelectedSpecific,selectedSpecific}) {
         //Separate state for each category  
         //General service is always active
     const [generalSelected,setGeneralSelected] = useState(true)
@@ -63,10 +63,12 @@ setService(buttonName);
 //Sets first service to Basic Service or the chosen one
 
 const firstService = Categoryoptions[buttonName]?.[0] || "Basic Service";
-SetSelectedSpecific(firstService);
+setSelectedSpecific(firstService);
 setCurrentSelection(firstService);
  
     };
+    console.log("Package step receivd", selectedSpecific);
+    
     return (
         <section>
             <h2>Service Selection</h2>
@@ -131,6 +133,8 @@ setCurrentSelection(firstService);
                 </label>
 
                 <select 
+                value={selectedSpecific}
+                onChange={(e) => setSelectedSpecific(e.target.value)}
                 className="
                 w-full p-4 pr-12
                  border-gray-300
@@ -178,3 +182,5 @@ setCurrentSelection(firstService);
         </section>
     )
 };
+
+export default ServiceSelection;

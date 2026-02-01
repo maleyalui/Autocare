@@ -6,7 +6,7 @@ import BookingHeader from "./BookingHeader";
 import { useState } from "react";
 import BookingPopup from "./BookingPopup";
 
-function BookingPage(){
+function BookingPage({onVehicleChange, onLocationChange}){
     const [service, setService]= useState("General Service");
     const [showPopup, setShowPopup] = useState(false);
     const [vehicle, setVehicle] = useState("");
@@ -31,7 +31,9 @@ function BookingPage(){
             setSelectedSpecific={setSelectedSpecific}
             selectedSpecific={selectedSpecific} />
 
-            <VehicleLocation />
+            <VehicleLocation 
+            onVehicleChange= {(value) => setVehicle(value)}
+            onLocationChange= {(value) => setLocation(value)}/>
 
             <PackageSelection 
             setPackageType={setPackageType}
