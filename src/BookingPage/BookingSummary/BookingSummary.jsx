@@ -6,7 +6,7 @@ function BookingSummary(props) {
     price: props.price,
     vehicle: props.vehicle,
     location: props.location,
-  });
+  })
 
     return (
         <section className="bg-white rounded-2xl shadow-md p-6 md:p-8 border border-gray-100 lg:sticky lg:top-8">
