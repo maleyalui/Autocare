@@ -23,7 +23,7 @@ function Getstarted(){
         
         {/* Using Navigate to so that when clicked takes you to the booking page */}
             <button
-            onClick={()=>navigate('/booking')}
+            onClick={()=>navigate('/register')}
             className="
             bg-blue-600 hover:bg-blue-700
             text-white font-semibold
