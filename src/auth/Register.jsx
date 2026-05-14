@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useNavigate} from "react-router-dom";
 import axios from 'axios';
+import API_URL from "./api";
 
 function Register() {
     const [formData, setFormData] = useState({
-        username: '',
+        full_name: '',
         email: '',
+        phone_number: '',
         password: '',
+        role: 'customer',
+        specialization: '' //for mechanics
     });
 
     const [error, setError] = useState('');
@@ -20,10 +24,17 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError();
+        setError('');
         setLoading(true);
-        navigate('/login')
-        // will update to backend
+        
+        try {
+            await API_URL.post('/auth/register', formData);
+            navigate('/login');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Registration failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -31,10 +42,10 @@ function Register() {
             <div className="max-w-md w-full space-y-8 bg-hite p-10 rounded-2xl shadow-lg">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-                        Create your AutoCare account
+                        Create your Auto Care account
                         </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
-                        Join thousands of vehicle owners getting doorstep services</p>
+                        Join thousands of vehicle owners getting services effortlessly</p>
                 </div>
                 {error && (
                     <div className="bg-red-50 border-l-4 border-red-500 p-4 text-red-700 text-sm">
@@ -45,25 +56,25 @@ function Register() {
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                     <div className="rounded-md shadow-sm space-y-4">
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                                Username
+                            <label htmlFor="full_name" className="block text-sm font-medium text-gray-700">
+                                Full Name:
                             </label>
                             <input
                              type="text"
-                             id="username"
-                             name="username"
+                             id="full_name"
+                             name="full_name"
                              required
-                             value={formData.username}
+                             value={formData.full_name}
                              onChange={handleChange}
                              className="mt-1 appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300 
                              placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                             placeholder="Choose a username"
+                             placeholder="Enter your full name"
                              />
                         </div>
 
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                Email
+                                Email:
                             </label>
                             <input
                              type="email"
@@ -77,9 +88,26 @@ function Register() {
                              />
                             </div>
 
+                        <div>
+                            <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">
+                                Phone Number:
+                            </label>
+                            <input
+                             type="text"
+                             name="phone_number"
+                             id="phone_number"
+                             value={formData.phone_number}
+                             onChange={handleChange}
+                             className="mt-1 appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300
+                             placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                             placeholder="Enter your phone number"
+                             required
+                             />
+                            </div>
+
                              <div>
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                    Password
+                                    Password:
                                 </label>
 
                                 <input
@@ -94,6 +122,43 @@ function Register() {
                                  placeholder="At least 8 characters"
                                  />
                              </div>
+
+                             <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                Register as:
+                            </label>
+                            <select
+                                name="role"
+                                id="role"
+                                value={formData.role}
+                                onChange={handleChange}
+                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            >
+                                <option value="user">Driver</option>
+                                <option value="mechanic">Mechanic</option>
+                            </select>
+
+                            {/*Only for mechanics */}
+                            {formData.role === 'mechanic' && (
+                                <div className="mt-4">
+                                    <label htmlFor="specialization" className="block text-sm font-medium text-gray-700">
+                                        Specialization:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="specialization"
+                                        id="specialization"
+                                        value={formData.specialization}
+                                        onChange={handleChange}
+                                        className="mt-1 appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300
+                                            placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        placeholder="Enter your specialization"
+                                    />
+                                </div>
+                            )}
+
+                            </div>
+
                         </div>
 
                         <div>
