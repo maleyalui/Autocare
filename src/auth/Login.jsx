@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "./api";
 
 function Login() {
     const [formData, setFormData] = useState({
-        username:'',
+        email:'',
         password:'',
     });
     const [error, setError] = useState('');
@@ -19,8 +20,27 @@ function Login() {
         e.preventDefault();
         setError();
         setLoading(true);
-        navigate('/booking')
-        // will update to backend
+        try {
+            const response = await API_URL.post('/auth/login', formData);
+            const { token, user } = response.data;
+
+            //save to local storage
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
+
+            //redirect based on role
+            if (user.role === 'customer') {
+                navigate('/customer/dashboard');
+            } else if (user.role === 'mechanic') {
+                navigate('/mechanic/dashboard');
+            } else {
+                navigate('/');
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || 'Login failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     }
 
     return(
@@ -44,19 +64,19 @@ function Login() {
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                     <div className="rounded-md shadow-sm space-y-4">
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                                Username
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                Email
                             </label>
                             <input 
-                            type="text"
-                            id="username"
-                            name="username"
+                            type="email"
+                            id="email"
+                            name="email"
                             required
-                            value={formData.username}
+                            value={formData.email}
                             onChange={handleChange}
                             className="mt-1 appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300
                             placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            placeholder="Your username" 
+                            placeholder="Enter your email" 
                             />
                         </div>
 
