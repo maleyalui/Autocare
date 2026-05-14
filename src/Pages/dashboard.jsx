@@ -1,10 +1,8 @@
-import BookingSummary from "./BookingSummary/BookingSummary";
-import PackageSelection from "./PackageSelection/PackageSelection";
-import VehicleLocation from "./VehicleLocation.jsx/VehicleLocation";
-import Services from "./ServiceSelection/ServiceSelection";
+import BookingSummary from "./receipt";
+import Services from "./Services";
 import BookingHeader from "./BookingHeader";
 import { useState } from "react";
-import BookingPopup from "./BookingPopup";
+import BookingPopup from "./confirmation";
 
 function BookingPage({onVehicleChange, onLocationChange}){
     const [service, setService]= useState("General Service");
@@ -31,17 +29,6 @@ function BookingPage({onVehicleChange, onLocationChange}){
             setSelectedSpecific={setSelectedSpecific}
             selectedSpecific={selectedSpecific} />
 
-            <VehicleLocation 
-            onVehicleChange= {(value) => setVehicle(value)}
-            onLocationChange= {(value) => setLocation(value)}/>
-
-            <PackageSelection 
-            setPackageType={setPackageType}
-            setPrice={setPrice}
-            setSelectedPackage={setSelectedPackage}
-            selectedPackage={selectedPackage}
-            selectedSpecific={selectedSpecific}
-            />
           </div>
 
           <BookingSummary
