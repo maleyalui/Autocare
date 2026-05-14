@@ -9,7 +9,7 @@ function Register() {
         email: '',
         phone_number: '',
         password: '',
-        role: 'customer',
+        role: 'user',
         specialization: '' //for mechanics
     });
 

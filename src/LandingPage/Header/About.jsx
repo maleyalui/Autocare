@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Title() {
 return (
@@ -8,20 +9,20 @@ return (
 )
 }
 
-function navbar() {
+function Navbar() {
     return (
         <nav className="flex items-center justify-between px-10 py-4 shadow-sm bg-white">
             <div className="text-2xl font-bold text-gray-800">Auto Care</div>
             <div className="flex gap-3">
-                <link to="/login"
-                className="px-5 p1-2 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition">
+                <Link to="/login"
+                className="px-5 py-2 rounded-lg text-gray-800 font-medium hover:bg-gray-100 text white transition">
                     Login
-                </link>
-                    <link
+                </Link>
+                    <Link
                     to="/register"
-                    className="px-5 py-2 rounded-lg bg-gray-800 text-white font-medium hover:bg-gray-600 transition">
+                    className="px-5 py-2 rounded-lg bg-gray-600 text-white font-medium hover:bg-gray-800 transition">
                     Sign Up
-                </link>
+                </Link>
                 </div>
 
         </nav>
@@ -58,4 +59,4 @@ function Getstarted(){
     )
 }
 
-export { Title,Description,Getstarted,navbar }  
+export { Title,Description,Getstarted,Navbar }  
