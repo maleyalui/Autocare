@@ -19,7 +19,7 @@ function HowItWorks() {
                                 1
                                 </div>
                             <p className="text-lg font-medium text-gray-700">
-                                Select Service
+                                Create an account
 
                             </p>
                         </div>
@@ -42,7 +42,7 @@ function HowItWorks() {
                                 3
                                 </div>
                             <p className="text-lg font-medium text-gray-700">
-                                Make Payment
+                                Get help first
 
                             </p>
                         </div>
