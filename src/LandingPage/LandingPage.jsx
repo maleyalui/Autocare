@@ -4,7 +4,7 @@ import Header from "./Header/Header"
 
 function LandingPage() {
     return ( <div>
-        
+            
             <Header />
             <HeroImage />
             <HowItWorks />

@@ -8,11 +8,30 @@ return (
 )
 }
 
+function navbar() {
+    return (
+        <nav className="flex items-center justify-between px-10 py-4 shadow-sm bg-white">
+            <div className="text-2xl font-bold text-gray-800">Auto Care</div>
+            <div className="flex gap-3">
+                <link to="/login"
+                className="px-5 p1-2 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition">
+                    Login
+                </link>
+                    <link
+                    to="/register"
+                    className="px-5 py-2 rounded-lg bg-gray-800 text-white font-medium hover:bg-gray-600 transition">
+                    Sign Up
+                </link>
+                </div>
+
+        </nav>
+    )
+}
 function Description() {
     return (
         <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-          Professional vehicle maintenance and repair services at your doorstep.<br className="hidden sm:block" />
-          Book trusted mechanics and repair services in minutes and keep your vehicle in perfect condition.
+        Book a mechanic, find a carwash, run diagnostics or get emergency help - all in one place across nairobi.<br className="hidden sm:block" />
+        Your car, Our priority. 
         </p>
     )
 }
@@ -39,4 +58,4 @@ function Getstarted(){
     )
 }
 
-export {Title,Description,Getstarted};
+export { Title,Description,Getstarted,navbar }  

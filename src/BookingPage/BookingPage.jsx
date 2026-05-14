@@ -1,7 +1,7 @@
 import BookingSummary from "./BookingSummary/BookingSummary";
 import PackageSelection from "./PackageSelection/PackageSelection";
 import VehicleLocation from "./VehicleLocation.jsx/VehicleLocation";
-import ServiceSelection from "./ServiceSelection/ServiceSelection";
+import Services from "./ServiceSelection/ServiceSelection";
 import BookingHeader from "./BookingHeader";
 import { useState } from "react";
 import BookingPopup from "./BookingPopup";
@@ -26,7 +26,7 @@ function BookingPage({onVehicleChange, onLocationChange}){
 
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-8">
-            <ServiceSelection 
+            <Services
             setService={setService}
             setSelectedSpecific={setSelectedSpecific}
             selectedSpecific={selectedSpecific} />
