@@ -12,7 +12,9 @@ return (
 function Navbar() {
     return (
         <nav className="flex items-center justify-between px-10 py-4 shadow-sm bg-white">
-            <div className="text-2xl font-bold text-gray-800">Auto Care</div>
+            <div className="text-2xl font-bold text-orange-600">
+                Auto <span className="text-blue-800">Care</span>
+            </div>
             <div className="flex gap-3">
                 <Link to="/login"
                 className="px-5 py-2 rounded-lg text-gray-800 font-medium hover:bg-gray-100 text white transition">
@@ -31,8 +33,8 @@ function Navbar() {
 function Description() {
     return (
         <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-        Book a mechanic, find a carwash, run diagnostics or get emergency help - all in one place across nairobi.<br className="hidden sm:block" />
-        Your car, Our priority. 
+        Book a mechanic, find a carwash, run diagnostics or get emergency help - all in one place across Nairobi.<br className="hidden sm:block" />
+        Your Car, Our Priority. 
         </p>
     )
 }
