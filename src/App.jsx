@@ -4,6 +4,7 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Register from "./auth/Register"
 import Login from "./auth/Login";
 import MechanicDashboard from "./Pages/mechanicdashboard";
+import AdminDashboard from "./Pages/AdminDashboard";
 
 function App() {
   return ( 
@@ -14,6 +15,7 @@ function App() {
          <Route path="/login" element={<Login />} />
          <Route path="/customer/dashboard" element={<BookingPage />} />
          <Route path="/mechanic/dashboard" element={<MechanicDashboard />} />
+         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
         </div>
    )

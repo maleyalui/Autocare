@@ -64,7 +64,7 @@ return (
             {/* Button */}
             <button
                 onClick={() => navigate(service.route)}
-                className="w-full py-3 bg-gray-900 hover:bg-gray-700 text-white font-semibold rounded-lg transition">
+                className="w-full py-3 bg-blue-900 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
                 Select Service
                 </button>
         </div>
