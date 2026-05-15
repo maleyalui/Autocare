@@ -5,6 +5,8 @@ import Register from "./auth/Register"
 import Login from "./auth/Login";
 import MechanicDashboard from "./Pages/mechanicdashboard";
 import AdminDashboard from "./Pages/AdminDashboard";
+import Diagnostics from "./Pages/Diagnostics";
+import Emergency from "./Pages/Emergency";
 
 function App() {
   return ( 
