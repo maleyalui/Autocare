@@ -20,22 +20,32 @@ const MechanicDashboard = () => {
         }, 3000);
     };
 
+    const fetchActiveJob = async () => {
+        try {
+            const res = await API_URL.get('/requests/mechanic/active');
+            if (res.data) {
+                setAcceptedRequest(res.data);
+                setIsActive(true);
+            }
+        } catch (err) {
+            console.error('Failed to fetch active job:', err);
+        }
+    };
     //fetch requests
     const fetchRequests = async () => {
         try{
         const res = await API_URL.get('/requests');
-        setRequests(res.data.requests || []);
+        setRequests(Array.isArray(res.data) ? res.data : res.data.requests || [] );
         } catch (err) {
             setError(err.response?.data?.error || 'Failed to load requests');
         }
         }
 
-        useEffect(() => {
+    useEffect(() => {
             if (isActive) {
                 fetchRequests();
             } else {
                 setRequests([]);
-                setAcceptedRequest(null);
             }
         }, [isActive]);
 
@@ -45,6 +55,10 @@ const MechanicDashboard = () => {
         const interval = setInterval(fetchRequests, 3000)
         return () => clearInterval(interval);
     }, [isActive]);
+
+    useEffect(() => {
+    fetchActiveJob();
+    }, []);
 
     // toggle active status
     const handleToggle = async () => {
@@ -61,7 +75,13 @@ const MechanicDashboard = () => {
     // accept a request
     const handleAccept = async (requestId) => {
         try {
-            await API_URL.post(`/requests/${requestId}`, { status: 'accepted' });
+            await API_URL.patch(`/requests/${requestId}`, { 
+                status: 'accepted'
+             });
+
+             const accepted = requests.find(r => r.id === requestId);
+            setAcceptedRequest(accepted);             
+            setRequests(prev => prev.filter(r => r.id !== requestId));
             showSuccess('Request accepted!');
         } catch (err) {
             setError(err.response?.data?.error || 'Failed to accept request');
@@ -72,33 +92,65 @@ const MechanicDashboard = () => {
         try {
             await API_URL.patch(`/requests/${requestId}`, { status: 'declined' })
             showSuccess('Request declined');
-            setRequests(prev => prev.filter(r => r._id !== requestId));
+            setRequests(prev => prev.filter(r => r.id !== requestId));
         } catch (err) {
             setError(err.response?.data?.error || 'Failed to decline request');
         }
     };
 
-    // call client - opens phone dailer
-    //const handleCallclient = (phoneNumber) => {
-       // window.open(`tel:${phoneNumber}`)
-    //}
+    //call client - opens phone dailer
+    const handleCallClient = (phoneNumber) => {
+        window.open(`tel:${phoneNumber}`)
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        navigate('/login')
+    }
+    
 
     return (
         <div className="min-h-screen bg-gray-50">
+            
+            
+        <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">
 
-            <div className="max-w-4xl mx-auto py-10 px-4">
+                  <div>
+                    <h1 className="text-xl font-bold text-gray-800">
+                    Mechanic Dashboard
+                    </h1>
+                </div>
+
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 hover:bg-gray-200 transition"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      
+    </nav>
+
+
+            <div className="max-w-6xl mx-auto lg:py-8 px-8">
 
                 {error && (
                     <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg mb-4">
                         {error}
                     </div>
                 )}
+
                 {success && (
                     <div className="bg-green-50 text-green-600 text-sm px-4 py-3 rounded-lg mb-4">
                         {success}
                     </div>
                 )}
-                </div>
+
+            </div>
 
                 {/* Header with toggle*/} 
                 <div className = "flex flex-col md:flex-row gap-6 mb-10">
@@ -152,12 +204,12 @@ const MechanicDashboard = () => {
                                 </div>
                             </div>
 
-                           {/* <button
+                            <button
                             onClick={() => handleCallClient(acceptedRequest.client_phone)}
                             className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition flex items-center justify-center gap-2"
                             >
                                 Call Client
-                            </button> */}
+                            </button> 
             
                         </div>
                     )}
@@ -188,7 +240,7 @@ const MechanicDashboard = () => {
                 </h2>
                 <button 
                 onClick={fetchRequests}
-                className="text-sm text-orange-500 hover:text-orange-600 font-medium"
+                className="text-sm text-blue-500 hover:text-blue-600 font-medium"
                 >
                 Refresh
                 </button>
@@ -200,6 +252,7 @@ const MechanicDashboard = () => {
                     <p className="text-gray-400 text-sm mt-1">New requests will appear here automatically</p>
                 </div>
                    ):(<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
                 {requests.map(req => (
                   <div
                     key={req.id}
@@ -219,7 +272,7 @@ const MechanicDashboard = () => {
                      <div className="grid grid-cols-2 gap-3 mb-5">
                       <div className="bg-gray-50 rounded-lg p-3">
                         <p className="text-xs text-gray-400 mb-1">Service</p>
-                        <p className="text-sm font-semibold text-gray-700">{req.service}</p>
+                        <p className="text-sm font-semibold text-gray-700">{req.provider}</p>
                       </div>
                       <div className="bg-gray-50 rounded-lg p-3">
                         <p className="text-xs text-gray-400 mb-1">Location</p>
@@ -234,8 +287,13 @@ const MechanicDashboard = () => {
                     {/* Accept / Decline buttons */}
                     <div className="flex gap-3">
                       <button
+                      disabled={!!acceptedRequest}
                         onClick={() => handleAccept(req.id)}
-                        className="flex-1 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition text-sm"
+                        className={`flex-1 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition text-sm ${
+                           acceptedRequest
+                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                            : 'bg-green-500 hover:bg-green-600 text-white'
+                            }`}
                       >
                         Accept
                       </button>

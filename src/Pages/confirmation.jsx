@@ -1,47 +1,39 @@
-function BookingPopup({ service, packageType, price, setShowPopup }) {
+function Confirmation({ isOpen, title, message, onConfirm, onCancel, confirmText, confirmColor }) {
+  if (!isOpen) return null;
+
   return (
-    <>
-      {/* light background overlay */}
-      <div
-        onClick={() => setShowPopup(false)}
-        className="fixed inset-0 bg-gray-900 bg-opacity-30"
-      ></div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-40">
+      <div className="bg-white rounded-2xl shadow-2xl 2-fll max-2-sm p-6 text-center">
 
-      {/* popup card */}
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-80 p-6 rounded-lg shadow-lg">
-        
-        <h2 className="text-center text-lg font-semibold mb-4 text-gray-800">
-          Booking Confirmed
-        </h2>
+          <h2 className="text-lg font-bold text-gray-800 mb-2">
+            {title}
+            </h2>
 
-        <div className="text-sm text-gray-700 space-y-2 mb-4 text-semibold">
-          <p>
-            <span className="font-medium">Service:</span> {service}
-          </p>
-          <p>
-            <span className="font-medium">Package:</span> {packageType}
-          </p>
-          <p>
-            <span className="font-medium">Total:</span> Ksh {price}
-          </p>
-        </div>
+            <p className="text-gray-600 mb-6">
+              {message}
+              </p> 
 
-        <button
-          onClick={() => setShowPopup(false)}
-          className="
-          w-full bg-blue-500
-           text-white py-2 rounded-md
-           hover:bg-blue-700"
-        >
-          Book Another Service
-        </button>
-
-        <div className="text-center items-center p-4">
-            <h3>Thank You for choosing us.</h3>
-        </div>
+              <div className="flex gap-3">
+                <button
+                onClick={onCancel}
+                className="bg-gray-100 flex-1 py-2 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-medium transition"
+                >
+                  Cancel
+                </button>
+                <button
+                onClick={onConfirm}
+                className={`flex-1 py-2 text-white rounded-lg text-sm font-semibold transition ${
+                  confirmColor === 'red' 
+                    ? 'bg-red-500 hover:bg-red-600'
+                    : 'bg-green-500 hover:bg-green-600'
+                }`}
+                >
+                  {confirmText || 'Confirm'}
+                </button>
+              </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default BookingPopup;
+export default Confirmation;

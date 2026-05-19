@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import API_URL from "./api";
+import API_URL from "../auth/api";
 import ProviderCard from "../card";
 
 function CarDetailing() {
@@ -18,6 +18,8 @@ function CarDetailing() {
     API_URL.get('/locations').then(res => setLocations(res.data))
   }, [])
 
+  console.log(selectedLocation)
+
   const handleSearch = async () => {
     if (!selectedLocation) {
       setError('Please select a location')
@@ -27,8 +29,10 @@ function CarDetailing() {
     setLoading(true)
     setSearched(true)
     try {
-        const res = await API.get(`/carwashes?location_id=${selectedLocation}`)
+        const res = await API_URL.get(`/carwashes?location_id=${selectedLocation}`)
       setCarwashes(res.data)
+      
+      console.log(carwashes)
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to load car washes')
     } finally {
@@ -37,10 +41,27 @@ function CarDetailing() {
   }
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-5xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Car Detailing</h1>
-        <p className="text-gray-500 mb-8">Find professional car washes near you</p>
 
+      <div className="bg-gradient-to-l from-purple-600 to-purple-800 text-white py-12 px-6">
+                
+                <button
+                onClick={() => navigate("/customer/dashboard")}
+                className="absolute top-4 left-4 px-3 py-1 bg-white text-purple-600 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
+                    >
+                        Back to Services
+                    </button>
+
+      <div className="max-w-5xl mx-auto px-6 py-6">
+        <h1 className="text-4xl font-bold mb-3">
+          Car Detailing
+          </h1>
+
+        <p className="text-lg text-purple-100">
+          Find professional cCar Washes near you
+        </p>
+
+        </div>
+      </div>
         {/* ── FILTER ── */}
         <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -52,6 +73,7 @@ function CarDetailing() {
                 onChange={e => setSelectedLocation(e.target.value)}
               >
                 <option value="">Select your area</option>
+                
                 {locations.map(l => (
                   <option key={l.id} value={l.id}>{l.name}</option>
                 ))}
@@ -83,7 +105,7 @@ function CarDetailing() {
         {carwashes.length > 0 && (
           <div>
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
-              {carwashes.length} Car WashFound
+              Car Wash Found ({carwashes.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {carwashes.map(cw => (
@@ -100,7 +122,7 @@ function CarDetailing() {
                     price={cw.price}
                     priceLabel="From"
                     features={cw.features}
-                    mapUrl={cw.map_url}
+                    map_url={cw.map_url}
                   />
                 </div>
               ))}
@@ -108,7 +130,6 @@ function CarDetailing() {
           </div>
         )}
       </div>
-    </div>
   )
 }   
 export default CarDetailing

@@ -1,4 +1,4 @@
-function ProviderCard({ name, phone, address, features, price, mapUrl, priceLabel }) {
+function ProviderCard({ name, phone, address, features, price, map_url, priceLabel }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between">
       <div>
@@ -39,9 +39,9 @@ function ProviderCard({ name, phone, address, features, price, mapUrl, priceLabe
       </div>
 
       {/* Get Directions Button */}
-      {mapUrl ? (
+      {map_url ? (
         <a
-          href={mapUrl}
+          href={map_url}
           target="_blank"
           rel="noreferrer"
           className="block w-full py-3 bg-gray-900 hover:bg-gray-700 text-white font-semibold rounded-lg transition text-center text-sm"

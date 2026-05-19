@@ -12,8 +12,8 @@ return (
 function Navbar() {
     return (
         <nav className="flex items-center justify-between px-10 py-4 shadow-sm bg-white">
-            <div className="text-2xl font-bold text-orange-600">
-                Auto <span className="text-blue-800">Care</span>
+            <div className="text-2xl font-bold text-blue">
+                Auto <span className="text-blue-600">Care</span>
             </div>
             <div className="flex gap-3">
                 <Link to="/login"

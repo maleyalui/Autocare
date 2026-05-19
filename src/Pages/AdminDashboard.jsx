@@ -72,19 +72,40 @@ function AdminDashboard() {
         garages: '/admin/garages',
         carwashes: '/admin/carwashes',
         diagnostics: '/admin/diagnostics',
-        emergency: '/admin/emergency-providers',
+        emergency: '/admin/emergency_providers',
         requests: '/admin/requests'
     }
 
     API_URL.get(endpoints[activeTab])
       .then(res => {
-        if (activeTab === 'users') setUsers(res.data)
-        if (activeTab === 'garages') setGarages(res.data)
-        if (activeTab === 'carwashes') setCarwashes(res.data)
-        if (activeTab === 'diagnostics') setDiagnostics(res.data)
-        if (activeTab === 'emergency') setEmergencyProviders(res.data)
-        if (activeTab === 'requests') setRequests(res.data)
-      }) 
+        console.log('REQUESTS DATA:', res.data);
+      const data = res.data
+      // since the response is an object we need to get it as an array to map through it
+
+            if (activeTab === 'users') {
+              setUsers(Array.isArray(data) ? data : data.users || [])
+            }
+          
+            if (activeTab === 'garages') {
+              setGarages(Array.isArray(data) ? data : data.garages || [])
+            }
+          
+            if (activeTab === 'carwashes') {
+              setCarwashes(Array.isArray(data) ? data : data.carwashes || [])
+            }
+          
+            if (activeTab === 'diagnostics') {
+              setDiagnostics(Array.isArray(data) ? data : data.diagnostics || [])
+            }
+          
+            if (activeTab === 'emergency') {
+              setEmergencyProviders(Array.isArray(data) ? data : data.emergency_providers || [])
+            }
+          
+            if (activeTab === 'requests') {
+              setRequests(Array.isArray(data) ? data : data.requests || [])
+            }
+            }) 
         .catch(err => setError(err.response?.data?.error || 'Failed to load data'))
         .finally(() => setLoading(false))
     }, [activeTab])
@@ -102,14 +123,23 @@ function AdminDashboard() {
             return prev
         })
       // re-fetch
-      
-      API_URL.get(`/admin/${refreshTab}`).then(res => {
-        if (refreshTab === 'users') setUsers(res.data)
-        if (refreshTab === 'garages') setGarages(res.data)
-        if (refreshTab === 'carwashes') setCarwashes(res.data)
-        if (refreshTab === 'diagnostics') setDiagnostics(res.data)
-        if (refreshTab === 'emergency-providers') setEmergencyProviders(res.data)
-        if (refreshTab === 'requests') setRequests(res.data)
+      const refetchMap = {
+        users: '/admin/users',
+        garages: '/admin/garages',
+        carwashes: '/admin/carwashes',
+        diagnostics: '/admin/diagnostics',
+        emergency_providers: '/admin/emergency_providers',
+        requests: '/admin/requests'
+      }
+
+      API_URL.get(refetchMap[refreshTab]).then(res => {
+        const data = Array.isArray(res.data) ? res.data : [] 
+        if (refreshTab === 'users') setUsers(data)
+        if (refreshTab === 'garages') setGarages(data)
+        if (refreshTab === 'carwashes') setCarwashes(data)
+        if (refreshTab === 'diagnostics') setDiagnostics(data)
+        if (refreshTab === 'emergency_providers') setEmergencyProviders(data)
+        if (refreshTab === 'requests') setRequests(data)
       })
     } catch (err) {
         setError(err.response?.data?.error || 'Failed to delete')
@@ -123,7 +153,7 @@ function AdminDashboard() {
             await API_URL.post('/admin/garages', garageForm)
             showSuccess('Garage added !')
             setGarageForm({ name: '', location_id: '', phone_number: '', address: '', map_url: '' })
-            API.get('/admin/garages').then(res => setGarages(res.data))
+            API_URL.get('/admin/garages').then(res => setGarages(res.data.garages || []))
             } catch (err) {
       setError(err.response?.data?.error || 'Failed to add garage')
     }}
@@ -135,7 +165,7 @@ function AdminDashboard() {
             await API_URL.post('/admin/carwashes', carwashForm)
             showSuccess('Car Wash added !')
             setCarwashForm({ name: '', location_id: '', phone_number: '', price: '', is_door_to_door: false, features: '', map_url: '' })
-            API.get('/admin/carwashes').then(res => setCarwashes(res.data))
+            API_URL.get('/admin/carwashes').then(res => setCarwashes(res.data.carwashes || []))
             } catch (err) {
       setError(err.response?.data?.error || 'Failed to add car wash')
     }}
@@ -147,7 +177,7 @@ function AdminDashboard() {
             await API_URL.post('/admin/diagnostics', diagnosticForm)
             showSuccess('Diagnostic added !')
             setDiagnosticForm({ name: '', location_id: '', phone_number: '', price_from: '', features: '', map_url: '' })
-            API.get('/admin/diagnostics').then(res => setDiagnostics(res.data))
+            API_URL.get('/admin/diagnostics').then(res => setDiagnostics(res.data.diagnostics || []))
             } catch (err) {
       setError(err.response?.data?.error || 'Failed to add diagnostic')
     }
@@ -157,10 +187,10 @@ function AdminDashboard() {
     const handleAddEmergency = async (e) => {
         e.preventDefault()
         try {
-            await API_URL.post('/admin/emergency-providers', emergencyForm)
+            await API_URL.post('/admin/emergency_providers', emergencyForm)
             showSuccess('Emergency Provider added !')
             setEmergencyForm({ emergency_type_id: '', name: '', location_id: '', phone_number: '', price: '', features: '', map_url: '' })
-            API.get('/admin/emergency-providers').then(res => setEmergencyProviders(res.data))
+            API_URL.get('/admin/emergency_providers').then(res => setEmergencyProviders(res.data.emergency_providers || []))
             } catch (err) {
       setError(err.response?.data?.error || 'Failed to add emergency provider')
     }
@@ -182,9 +212,8 @@ return (
 
       {/* NAVBAR */}
       <nav className="flex items-center justify-between px-10 py-4 shadow-sm bg-white sticky top-0 z-50">
-        <div className="text-2xl font-bold text-orange-500">
-          Auto<span className="text-gray-800">Care</span>
-          <span className="ml-3 text-sm font-normal text-gray-400">Admin</span>
+        <div className="text-2xl font-bold text-blue-500">
+          Auto<span className="text-blue-800"> Care</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="text-gray-600 text-sm">Hi, {user?.full_name}</span>
@@ -468,7 +497,7 @@ return (
                       </td>
                       <td className="py-3 px-4">
                         <button
-                          onClick={() => handleDeleteCarwash(cw.id)}
+                          onClick={() => handleDelete('/admin/carwashes', cw.id, 'carwashes')}
                           className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition text-sm"
                         >
                           Delete
@@ -574,7 +603,7 @@ return (
                           </td>
                           <td className="py-3 px-4">
                             <button
-                              onClick={() => handleDeleteDiagnostic(d.id)}
+                              onClick={() => handleDelete('/admin/diagnostics', d.id, 'diagnostics')}
                               className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition text-sm"
                             >
                               Delete
@@ -677,8 +706,8 @@ return (
                   {emergencyProviders.map(ep => (
                     <tr key={ep.id}>
                       <td className="py-3 px-4">{ep.name}</td>
-                      <td className="py-3 px-4">{ep.emergency_type?.name || 'N/A'}</td>
-                      <td className="py-3 px-4">{ep.location?.name || 'N/A'}</td>
+                      <td className="py-3 px-4">{ep.emergency_type || 'N/A'}</td>
+                      <td className="py-3 px-4">{ep.location || 'N/A'}</td>
                       <td className="py-3 px-4">{ep.phone_number}</td>
                       <td className="py-3 px-4">{ep.price}</td>
                       <td className="py-3 px-4">{ep.features}</td>
@@ -690,7 +719,10 @@ return (
                         )}
                       </td>
                       <td className="py-3 px-4">
-                        <button className="text-red-500 hover:text-red-700" onClick={() => deleteEmergencyProvider(ep.id)}>
+                        <button
+                        className="text-red-500 hover:text-red-700"
+                        onClick={() => handleDelete('/admin/emergency_providers', ep.id, 'emergency_providers')}
+                        >
                           Delete
                         </button>
                       </td>
@@ -711,18 +743,30 @@ return (
             <table className="w-full text-sm">
               <thead className="bg-gray-50 text-gray-500 uppercase text-xs">
                 <tr>
-                  <th className="px-6 py-3 text-left">User</th>
-                  <th className="px-6 py-3 text-left">Service Type</th>
-                  <th className="px-6 py-3 text-left">Service Name</th>
+                  <th className="px-6 py-3 text-left">Client</th>
+                  <th className="px-6 py-3 text-left">Location</th>
+                  <th className="px-6 py-3 text-left">Service</th>
                   <th className="px-6 py-3 text-left">Status</th>
+                  <th className="px-6 py-3 text-left">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
+
                 {requests.map(r => (
                   <tr key={r.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 font-medium text-gray-800">{r.user?.full_name || 'N/A'}</td>
-                    <td className="px-6 py-4 text-gray-500">{r.service_type}</td>
-                    <td className="px-6 py-4 text-gray-500">{r.service_name}</td>
+
+                    <td className="px-6 py-4 font-medium text-gray-800">
+                      {r.client_name || 'N/A'}
+                    </td>
+
+                    <td className="px-6 py-4 text-gray-500">
+                      {r.location}
+                    </td>
+
+                    <td className="px-6 py-4 text-gray-500">
+                      {r.service || 'N/A'}
+                    </td>
+
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         r.status === 'completed' ? 'bg-yellow-100 text-yellow-600' :
@@ -730,12 +774,19 @@ return (
                         r.status === 'declined' ? 'bg-red-100 text-red-600' :
                         'bg-gray-100 text-gray-600'
                       }`}>
+
                         {r.status}
+
                       </span>
                     </td>
+
                     <td className="px-6 py-4">
-                      <button className="text-red-500 hover:text-red-700" onClick={() => deleteRequest(r.id)}>
+                      <button 
+                      className="text-red-500 hover:text-red-700"
+                      onClick={() => handleDelete('/admin/requests', r.id, 'requests')}
+                      >
                         Delete
+                        
                       </button>
                     </td>
                   </tr>

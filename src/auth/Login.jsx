@@ -29,13 +29,17 @@ function Login() {
             localStorage.setItem('user', JSON.stringify(user));
 
             //redirect based on role
-            if (user.role === 'customer') {
+            if (user.role === 'user') {
                 navigate('/customer/dashboard');
             } else if (user.role === 'mechanic') {
                 navigate('/mechanic/dashboard');
-            } else {
+            } else if (user.role === 'admin') {
+                navigate('/admin/dashboard');
+            }
+            else {
                 navigate('/');
             }
+            
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed. Please try again.');
         } finally {
@@ -59,7 +63,7 @@ function Login() {
                     <div className="bg-red-50 border-l-4 border-red-500 p-4 text-red-700 text-sm">
                         {error}
                     </div>
-                )};
+                )}
 
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                     <div className="rounded-md shadow-sm space-y-4">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import API_URL from "./api";
+import API_URL from "../auth/api";
 import ProviderCard from "../card";
 
 function Diagnostics() {
@@ -14,7 +14,7 @@ function Diagnostics() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    API.get('/locations').then(res => setLocations(res.data))
+    API_URL.get('/locations').then(res => setLocations(res.data))
   }, [])
 
   const handleSearch = async () => {
@@ -27,7 +27,7 @@ function Diagnostics() {
     setLoading(true)
     setSearched(true)
     try {
-      const res = await API.get(`/diagnostics?location_id=${selectedLocation}`)
+      const res = await API_URL.get(`/diagnostics?location_id=${selectedLocation}`)
       setCenters(res.data)
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to load diagnostic centers')
@@ -37,9 +37,27 @@ function Diagnostics() {
   }
     return (
     <div className="min-h-screen bg-gray-50">
+
+      <div className="bg-gradient-to-l from-green-600 to-green-800 text-white py-12">
+
+                  <button
+                onClick={() => navigate("/customer/dashboard")}
+                className="absolute top-4 left-4 px-3 py-1 bg-white text-green-600 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
+                    >
+                        Back to Services
+                    </button>
+
         <div className="max-w-5xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Diagnostics</h1>
-        <p className="text-gray-500 mb-8">Find diagnostic centers near you for a full vehicle scan</p>
+        
+        <h1 className="text-3xl font-bold mb-2">
+          Diagnostics
+          </h1>
+
+        <p className="text-green-100 mb-8">
+          Find diagnostic centers near you for a full vehicle scan
+          </p>
+        </div>
+      </div>
 
         {/* ── FILTER ── */}
         <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
@@ -69,7 +87,7 @@ function Diagnostics() {
           {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
         </div>
         {loading && (
-          <p className="text-gray-400 text-sm text-center py-10">Finding diagnostic centers near you...</p>
+          <p className="text-gray-400 text-sm text-center py-10">Loading ...</p>
         )}
 
         {searched && !loading && centers.length === 0 && (
@@ -83,7 +101,7 @@ function Diagnostics() {
         {centers.length > 0 && (
           <div>
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
-              {centers.length} Center{centers.length > 1 ? 's' : ''} Found
+               Center Found ( {centers.length} )
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {centers.map(center => (
@@ -94,7 +112,7 @@ function Diagnostics() {
                   price={center.price_from}
                   priceLabel="From"
                   features={center.features}
-                  mapUrl={center.map_url}
+                  map_url={center.map_url}
                 />
               ))}
             </div>
@@ -102,7 +120,7 @@ function Diagnostics() {
         )}
 
       </div>
-    </div>
+      
   )
 }
 
