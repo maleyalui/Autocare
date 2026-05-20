@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = axios.create({
-    baseURL: 'http://127.0.0.1:5000'
+    baseURL: 'https://autocare-backend-0syb.onrender.com'
 });
 
 // to add token to requests
