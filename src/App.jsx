@@ -9,6 +9,7 @@ import Diagnostics from "./Pages/Diagnostics";
 import Emergency from "./Pages/Emergency";
 import GeneralService from "./Pages/GeneralService";
 import CarDetailing from "./Pages/Cardetailing";
+import Verify from "./Pages/Verify";
 
 function App() {
 const isLoggedIn = () => localStorage.getItem('token') !== null
@@ -21,25 +22,13 @@ const getUserRole = () => {
 
   return ( 
      <div className=" min-h-screen bg-gray-50">
-      <Routes>
-         <Route path="/" element={<LandingPage />} />
-         <Route path="/register" element={<Register />} />
-         <Route path="/login" element={<Login />} />
-         <Route path="mechanic/dashboard" element={<MechanicDashboard />} />
-         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/customer/dashboard" element={<BookingPage />} />
-          <Route path="/diagnostics" element={<Diagnostics />} />
-          <Route path="/emergency" element={<Emergency />} />
-          <Route path="/general-service" element={<GeneralService />} />
-          <Route path="/car-detailing" element={<CarDetailing />} />
-          <Route path="/emergency" element={<Emergency />} />
-          <Route path="/general-service" element={<GeneralService />} />
-          <Route path="/car-detailing" element={<CarDetailing />} />
-          
-         {/* <Route
+         <Route
          path="/customer/dashboard"
         element={isLoggedIn() ? <BookingPage /> : <Navigate to="/login" />} />
          
+         <Route
+          path="/verify" element={<Verify />} />
+          
           <Route
          path="/mechanic/dashboard"
          element={isLoggedIn() && getUserRole() === 'mechanic' ? <MechanicDashboard /> : <Navigate to="/login" />} />
@@ -62,9 +51,11 @@ const getUserRole = () => {
          <Route
          path="/car-detailing"
          element={isLoggedIn() ? <CarDetailing /> : <Navigate to="/login" />} />
-        */}</Routes>
+        
 
         </div>
+
+        
    )
   }
 export default App;
