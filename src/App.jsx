@@ -57,7 +57,10 @@ const getUserRole = () => {
          path="/car-detailing"
          element={isLoggedIn() ? <CarDetailing /> : <Navigate to="/login" />} />
         
-
+           {/* 404 Redirect */}
+           <Route path="*" element={<Navigate to="/" replace />} />
+         
+         </Routes>
         </div>
 
         
