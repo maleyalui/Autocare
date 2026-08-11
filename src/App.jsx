@@ -22,14 +22,19 @@ const getUserRole = () => {
 
   return ( 
      <div className=" min-h-screen bg-gray-50">
+         <Routes>
+           {/* Public Pages */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/verify" element={<Verify />} />
+
+           {/*Customer Pages*/}
          <Route
          path="/customer/dashboard"
         element={isLoggedIn() ? <BookingPage /> : <Navigate to="/login" />} />
          
-         <Route
-          path="/verify" element={<Verify />} />
-          
-          <Route
+        <Route
          path="/mechanic/dashboard"
          element={isLoggedIn() && getUserRole() === 'mechanic' ? <MechanicDashboard /> : <Navigate to="/login" />} />
           
