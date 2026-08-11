@@ -29,7 +29,7 @@ function Register() {
         
         try {
             await API_URL.post('/auth/register', formData);
-            navigate('/login');
+            navigate('/verify', { state: { email: formData.email } });
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed. Please try again.');
         } finally {
