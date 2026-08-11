@@ -43,7 +43,7 @@ function Verify() {
       setError('Please enter all 6 digits')
       return
         }
-    }
+    
 
     setLoading(true)
     try {
@@ -55,11 +55,12 @@ function Verify() {
     } finally {
         setLoading(false)
     }
+    }
 
 
     return(
         <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-            <div className="bg-white p-10 rounded-2xl shadow-sm w-full max=w=md text-center">
+            <div className="bg-white p-10 rounded-2xl shadow-sm w-full max-w-md text-center">
 
                 <div className="text-5xl mb-4"> </div>
                 <h2 className="text-2xl font-bold text-gray-800 mb-1">Verify Your Account</h2>
