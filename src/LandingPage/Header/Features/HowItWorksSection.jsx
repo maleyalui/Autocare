@@ -15,7 +15,7 @@ function HowItWorks() {
                         
                         {/* Step 1 */}
                         <div className="flex flex-col items-center text-center">
-                            <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
+                            <div className="w-16 h-16 rounded-full bg-orange-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
                                 1
                                 </div>
                             <p className="text-lg font-medium text-gray-700">
@@ -27,8 +27,19 @@ function HowItWorks() {
 
                 {/* Step 2 */}
                     <div className="flex flex-col items-center text-center">
-                            <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
+                            <div className="w-16 h-16 rounded-full bg-orange-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
                                 2
+                                </div>
+                            <p className="text-lg font-medium text-gray-700">
+                                Log into your Account
+
+                            </p>
+                        </div>
+
+                        {/* Step 3 */}
+                    <div className="flex flex-col items-center text-center">
+                            <div className="w-16 h-16 rounded-full bg-orange-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
+                                3
                                 </div>
                             <p className="text-lg font-medium text-gray-700">
                                 Choose Service
@@ -36,20 +47,9 @@ function HowItWorks() {
                             </p>
                         </div>
 
-                        {/* Step 3 */}
-                    <div className="flex flex-col items-center text-center">
-                            <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
-                                3
-                                </div>
-                            <p className="text-lg font-medium text-gray-700">
-                                Get help first
-
-                            </p>
-                        </div>
-
                         {/* Step 4 */}
             <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
+            <div className="w-16 h-16 rounded-full bg-orange-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
               4
             </div>
             <p className="text-lg font-medium text-gray-700">
@@ -58,7 +58,7 @@ function HowItWorks() {
           </div>
                         {/* Step 5 */}
                     <div className="flex flex-col items-center text-center">
-                            <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
+                            <div className="w-16 h-16 rounded-full bg-orange-600 text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
                                 5
                                 </div>
                             <p className="text-lg font-medium text-gray-700">
