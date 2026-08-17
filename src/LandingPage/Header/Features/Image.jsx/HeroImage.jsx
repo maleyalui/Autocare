@@ -12,9 +12,23 @@ const reviews = [
     {
         name: "Mitchelle Wanjiku",
         Location: "Kilimani",
-        review: "Found a car wash near me in seconds. Dorr to door service - they came to my apartment and cleaned my car. Amazing!",
+        review: "Found a car wash near me in seconds. Door to door service - they came to my apartment and cleaned my car. Amazing!",
         stars: 5,
         initial: "MW"
+    },
+    {
+        name: "Darren Santos",
+        Location: "Karen",
+        review: "Amazing work!",
+        stars: 5,
+        initial: "DS"
+    },
+    {
+        name: "Jacob Bowa",
+        Location: "Kileleshwa",
+        review: "Connected me to a specialised mechanic in Kileleshwa. Incredible app.",
+        stars: 5,
+        initial: "JB"
     },
     {
         name: "Stewart Ochieng",
@@ -102,18 +116,18 @@ function ReviewSlideshow() {
             
 
             {/* Prev/ Next buttons*/}
-
-            <button
-            onClick={goToPrev}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-500 hover:text-orange-500 transition"
-            >
-            ‹
-            </button>
         <button
             onClick={goToNext}
             classname="absolute left-3 top 1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-500 hover:text-orange-500 transition"
             >
             ›
+        </button>
+
+        <button
+            onClick={goToPrev}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-500 hover:text-orange-500 transition"
+            >
+            ‹
         </button>
 
             {/*Dots*/}
