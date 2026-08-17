@@ -14,7 +14,7 @@ function LandingPage() {
                 What Drivers Say
             </h2>
             <p className="text-center text-gray-500 mb-10">
-                Real experience from Auto CAre users across Nairobi 
+                Real experience from Auto Care users across Nairobi 
             </p>
             <ReviewSlideshow />
             </section>
