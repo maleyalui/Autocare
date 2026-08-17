@@ -13,7 +13,7 @@ function Navbar() {
     return (
         <nav className="flex items-center justify-between px-10 py-4 shadow-sm bg-white">
             <div className="text-2xl font-bold text-blue">
-                Auto <span className="text-blue-600">Care</span>
+                Auto <span className="text-orange-600">Care</span>
             </div>
             <div className="flex gap-3">
                 <Link to="/login"
@@ -22,7 +22,7 @@ function Navbar() {
                 </Link>
                     <Link
                     to="/register"
-                    className="px-5 py-2 rounded-lg bg-gray-600 text-white font-medium hover:bg-gray-800 transition">
+                    className="px-5 py-2 rounded-lg bg-orange-600 text-white font-medium hover:bg-orange-800 transition">
                     Sign Up
                 </Link>
                 </div>
