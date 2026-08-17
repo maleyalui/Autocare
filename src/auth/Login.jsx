@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import API_URL from "./api";
 
 function Login() {
@@ -18,7 +17,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError();
+        setError('');
         setLoading(true);
         try {
             const response = await API_URL.post('/auth/login', formData);
@@ -41,7 +40,7 @@ function Login() {
             }
             
         } catch (err) {
-            setError(err.response?.data?.message || 'Login failed. Please try again.');
+            setError(err.response?.data?.error || 'Login failed. Please try again.');
         } finally {
             setLoading(false);
         }
